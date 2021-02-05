@@ -14,6 +14,8 @@ if __name__ == "__main__":
       rows.append(row)
       if row[2] not in genre_start or int(row[3]) < genre_start[row[2]]:
         genre_start[row[2]] = int(row[3])
+      if row[6] not in genre_start or int(row[7]) < genre_start[row[6]]:
+        genre_start[row[6]] = int(row[7])
 
     map_genre_to_id = {}
 
