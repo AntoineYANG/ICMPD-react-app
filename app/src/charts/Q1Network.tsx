@@ -2,97 +2,81 @@
  * @Author: Kanata You 
  * @Date: 2021-02-05 17:19:00 
  * @Last Modified by: Kanata You
- * @Last Modified time: 2021-02-05 18:43:10
+ * @Last Modified time: 2021-02-07 03:32:04
  */
 
 import React, { useState } from "react";
-import genres, { getGenreName, Genre } from "../constance/genres";
-import influenceByYear, { influenceFlow } from "../constance/influenceByYear";
+import { getGenreName } from "../constance/genres";
 import Colors from "../constance/colors";
+import q1case from "../constance/q1case";
 
 
 const WIDTH     = 700;
 const HEIGHT    = 700;
-const R         = 34;
 const FONTSIZE  = 12;
 
-type GenreNode = {
-  gid:    number;
-  name:   Genre;
-  input:  influenceFlow[];
-  output: influenceFlow[];
-  x:      number;
-  y:      number;
+const graph = {
+  ...q1case,
+  nodes: q1case.nodes.map(node => {
+    const c = 0.5 * Math.sqrt(node.level);
+
+    return {
+      ...node,
+      x: WIDTH / 2 + (node.level - 1.5) * WIDTH * 0.24,
+      y: HEIGHT * ((1 - c) / 2 + c * Math.random())
+    };
+  })
 };
-
-const nodes: GenreNode[] = genres.map(g => {
-  const deg = Math.random() * Math.PI * 2;
-  const dist = (1 - Math.random() * Math.random()) * (Math.min(
-    WIDTH, HEIGHT
-  ) / 2.1 - R);
-
-  return {
-    gid:    g.genre_id,
-    name:   g.name,
-    input:  [],
-    output: [],
-    x:      WIDTH / 2 + Math.cos(deg) * dist,
-    y:      HEIGHT / 2 - Math.sin(deg) * dist
-  };
-}).sort((a, b) => a.gid - b.gid);
-
-influenceByYear.forEach(influence => {
-  influence.flow.forEach(flow => {
-    nodes[flow.source_gid].output.push(flow);
-    nodes[flow.target_gid].input.push(flow);
-  });
-});
 
 let moving: SVGCircleElement | null = null;
 let mouseX = 0;
 let mouseY = 0;
 
 const Q1Network: React.FC = () => {
-  const [state, setState] = useState({ nodes, dragging: -1, focusing: -1 });
+  const [state, setState] = useState({ graph, dragging: -1, focusing: -1 });
 
-  const lineWidth = (val: number) => 2 + 6 * Math.log(val + 1) / 6.67;
+  const lineWidth = (val: number) => 1 + 2.5 * val;
+  const getR = (size: number) => size;
+
+  const getNode = (id: number) => state.graph.nodes.filter(n => n.id === id)[0];
 
   const getPath = (a: number, b: number) => {
+    const nodeA = state.graph.nodes.filter(n => n.id === a)[0];
+    const nodeB = state.graph.nodes.filter(n => n.id === b)[0];
     const pos = {
-      x1: state.nodes[a].x,
-      y1: state.nodes[a].y,
-      x2: state.nodes[b].x,
-      y2: state.nodes[b].y,
+      x1: nodeA.x,
+      y1: nodeA.y,
+      x2: nodeB.x,
+      y2: nodeB.y,
       x:  0,
       y:  0,
       deg:0
     };
 
-    const dist = Math.sqrt(
-      Math.pow(pos.x1 - pos.x2, 2)
-      + Math.pow(pos.y1 - pos.y2, 2)
-    );
-    const dx = (pos.x2 - pos.x1) / dist * R;
-    const dy = (pos.y2 - pos.y1) / dist * R;
+    // const dist = Math.sqrt(
+    //   Math.pow(pos.x1 - pos.x2, 2) + Math.pow(pos.y1 - pos.y2, 2)
+    // );
+    // const dx = (pos.x2 - pos.x1) / dist * getR(nodeA.symbolSize);
+    // const dy = (pos.y2 - pos.y1) / dist * getR(nodeB.symbolSize);
     
-    const dist2 = Math.sqrt(
-      Math.pow(pos.x1 - pos.x2, 2)
-      + Math.pow(pos.y1 - pos.y2, 2)
-    );
-    const dx2 = (pos.x2 - pos.x1) / dist2 * 6;
-    const dy2 = (pos.y2 - pos.y1) / dist2 * 6;
+    // const dist2 = Math.sqrt(
+    //   Math.pow(pos.x1 - pos.x2, 2)
+    //   + Math.pow(pos.y1 - pos.y2, 2)
+    // );
+    // const dx2 = (pos.x2 - pos.x1) / dist2 * 6;
+    // const dy2 = (pos.y2 - pos.y1) / dist2 * 6;
 
-    pos.deg = pos.y1 > pos.y2 ? Math.asin((pos.x2 - pos.x1) / dist) / Math.PI * 180
-      : 180 - Math.asin((pos.x2 - pos.x1) / dist) / Math.PI * 180;
+    // pos.deg = pos.y1 > pos.y2 ? Math.asin((pos.x2 - pos.x1) / dist) / Math.PI * 180
+    //   : 180 - Math.asin((pos.x2 - pos.x1) / dist) / Math.PI * 180;
 
-    pos.x1 += dx;
-    pos.x2 -= dx;
-    pos.y1 += dy;
-    pos.y2 -= dy;
-    pos.x = pos.x2;
-    pos.x2 -= dx2;
-    pos.y = pos.y2;
-    pos.y2 -= dy2;
+    // pos.x1 += dx;
+    // pos.x2 -= dx;
+    // pos.y1 += dy;
+    // pos.y2 -= dy;
+    // pos.x = pos.x2;
+    // pos.x2 -= dx2;
+    // pos.y = pos.y2;
+    // pos.y2 -= dy2;
 
     return pos;
   };
@@ -106,9 +90,9 @@ const Q1Network: React.FC = () => {
       onMouseMove={
         e => {
           if (moving) {
-            moving.setAttribute("cx", e.clientX - mouseX + "");
+            // moving.setAttribute("cx", e.clientX - mouseX + "");
             moving.setAttribute("cy", e.clientY - mouseY + "");
-            moving.nextElementSibling!.setAttribute("x", e.clientX - mouseX + "");
+            // moving.nextElementSibling!.setAttribute("x", e.clientX - mouseX + "");
             moving.nextElementSibling!.setAttribute("y", e.clientY - mouseY + "");
           }
         }
@@ -117,13 +101,16 @@ const Q1Network: React.FC = () => {
         e => {
           moving = null;
           setState({
-            nodes: state.nodes.map((node, i) => {
-              return i === state.dragging ? {
-                ...node,
-                x: e.clientX - mouseX,
-                y: e.clientY - mouseY
-              } : node;
-            }),
+            graph: {
+              ...state.graph,
+              nodes: state.graph.nodes.map((node, i) => {
+                return i === state.dragging ? {
+                  ...node,
+                  // x: e.clientX - mouseX,
+                  y: e.clientY - mouseY
+                } : node;
+              })
+            },
             focusing: state.dragging,
             dragging: -1
           });
@@ -131,57 +118,53 @@ const Q1Network: React.FC = () => {
       } >
         <g key="links" >
           {
-            state.nodes.map(node => {
-              const links: {[target: number]: number;} = {};
-              node.output.forEach(flow => {
-                if (flow.target_gid === node.gid) {
-                  return;
-                }
-                links[flow.target_gid] = (links[flow.target_gid] || 0) + flow.count;
-              });
-              return Object.entries(links).map(link => {
-                const b = parseInt(link[0]);
-                const { x1, x2, y1, y2, x, y, deg } = getPath(node.gid, b);
+            state.graph.links.map((link, i) => {
+              const from = parseInt(link.source);
+              const to = parseInt(link.target);
+              const { x1, x2, y1, y2, x, y, deg } = getPath(from, to);
+              const node = getNode(from);
+              const g = getGenreName(node.category);
+              const focusing = state.focusing === -1 ? null : state.graph.nodes[state.focusing].id;
 
-                return (
-                  <g key={ `${node.gid}->${link[0]}`} >
-                    <path key={ 0 }
-                      d={ `M${x1},${y1} L${x2},${y2}` }
-                      style={{
-                        fill:       "none",
-                        stroke:     Colors.byGenre[getGenreName(node.gid)],
-                        strokeWidth:`${lineWidth(link[1])}px`,
-                        opacity:    state.focusing === -1 ? 0.5
-                          : node.gid === state.focusing ? 0.9
-                          : b === state.focusing ? 0.4 : 0.04,
-                        transition: "opacity 0.3s"
-                      }} />
-                    <path key={ 1 }
-                      d="M0,0 L-8,14 L8,14 Z"
-                      style={{
-                        transform:  `translate(${x}px,${y}px) rotate(${deg}deg)`,
-                        fill:       Colors.byGenre[getGenreName(node.gid)],
-                        opacity:    state.focusing === -1 ? 0.5
-                          : node.gid === state.focusing || b === state.focusing ? 0.9 : 0.04,
-                        transition: "opacity 0.3s"
-                      }} />
-                  </g>
-                );
-              });
-            }).flat(Infinity)
+              return (
+                <g key={ i } >
+                  <path key={ 0 }
+                    d={ `M${x1},${y1} L${x2},${y2}` }
+                    style={{
+                      fill:       "none",
+                      stroke:     Colors.byGenre[g],
+                      strokeWidth:`${lineWidth(0)}px`,
+                      opacity:    focusing === null ? 0.5
+                        : node.id === focusing ? 0.9
+                        : getNode(to).id === focusing ? 0.4 : 0.04,
+                      transition: "opacity 0.3s"
+                    }} />
+                  {/* <path key={ 1 }
+                    d="M0,0 L-8,14 L8,14 Z"
+                    style={{
+                      transform:  `translate(${x}px,${y}px) rotate(${deg}deg)`,
+                      fill:       Colors.byGenre[g],
+                      opacity:    focusing === null ? 0.5
+                        : node.id === focusing || getNode(to).id === focusing
+                        ? 0.9 : 0.04,
+                      transition: "opacity 0.3s"
+                    }} /> */}
+                </g>
+              );
+            })
           }
         </g>
         <g key="nodes" >
           {
-            state.nodes.map((node, i) => {
+            state.graph.nodes.map((node, i) => {
               return (
-                <g key={ node.gid } >
+                <g key={ node.name } >
                   <circle
-                    cx={ node.x } cy={ node.y } r={ R }
+                    cx={ node.x } cy={ node.y } r={ getR(node.symbolSize) }
                     style={{
-                      fill:         "white",
-                      stroke:       Colors.byGenre[getGenreName(node.gid)],
-                      strokeWidth:  "2px",
+                      fill:         Colors.byGenre[getGenreName(node.category)],
+                      // stroke:       Colors.byGenre[getGenreName(node.category)],
+                      // strokeWidth:  "2px",
                       cursor:       state.dragging === i ? "grabbing" : "grab"
                     }}
                     onMouseDown={
@@ -198,18 +181,15 @@ const Q1Network: React.FC = () => {
                     } />
                   <text x={ node.x } y={ node.y }
                     textAnchor="middle"
-                    // textLength={ getGenreName(node.gid).length >= 8 ? `${R*2-6}` : undefined }
                     style={{
-                      fill:       Colors.byGenre[getGenreName(node.gid)],
-                      fontSize:   getGenreName(node.gid).length >= 8 ? `${
-                        FONTSIZE * Math.pow(8 / getGenreName(node.gid).length, 0.67)
-                      }` : FONTSIZE,
+                      // fill:       Colors.byGenre[getGenreName(node.category)],
+                      fontSize:   FONTSIZE,
                       fontWeight: 600,
                       transform:  `translateY(0.36em)`,
                       pointerEvents:  "none",
                       userSelect:   "none"
                     }} >
-                      { getGenreName(node.gid) }
+                      { node.name }
                   </text>
                 </g>
               );

@@ -1,0 +1,61 @@
+https://echarts.apache.org/examples/en/editor.html?c=bar-y-category
+
+data = [{"aid": 754032, "name": "The Beatles", "genre": "Pop/Rock", "mi": 111.29000097448832}, {"aid": 66915, "name": "Bob Dylan", "genre": "Pop/Rock", "mi": 64.3525284982904}, {"aid": 894465, "name": "The Rolling Stones", "genre": "Pop/Rock", "mi": 45.52906360609491}, {"aid": 549797, "name": "Hank Williams", "genre": "Country", "mi": 40.12739790152262}, {"aid": 531986, "name": "David Bowie", "genre": "Pop/Rock", "mi": 34.94168939953346}, {"aid": 354105, "name": "Jimi Hendrix", "genre": "Pop/Rock", "mi": 33.556767430359734}, {"aid": 79016, "name": "Billie Holiday", "genre": "Vocal", "mi": 33.30650351528604}, {"aid": 128099, "name": "James Brown", "genre": "R&B;", "mi": 32.1451033332505}, {"aid": 180228, "name": "Elvis Presley", "genre": "Pop/Rock", "mi": 32.134929594073995}, {"aid": 287604, "name": "Louis Jordan", "genre": "Jazz", "mi": 31.484042327226653}, {"aid": 120521, "name": "Chuck Berry", "genre": "Pop/Rock", "mi": 31.432244825872385}, {"aid": 423829, "name": "Miles Davis", "genre": "Jazz", "mi": 31.04809465713708}, {"aid": 238115, "name": "Sam Cooke", "genre": "R&B;", "mi": 30.292173509441138}, {"aid": 848784, "name": "Roy Acuff", "genre": "Country", "mi": 30.181351187848755}, {"aid": 577531, "name": "Woody Guthrie", "genre": "Folk", "mi": 30.12204512793209}, {"aid": 259529, "name": "Lester Young", "genre": "Jazz", "mi": 29.993387121499634}, {"aid": 139026, "name": "Led Zeppelin", "genre": "Pop/Rock", "mi": 29.26978447008126}, {"aid": 100160, "name": "The Kinks", "genre": "Pop/Rock", "mi": 28.736440680187286}, {"aid": 211758, "name": "Charlie Parker", "genre": "Jazz", "mi": 27.67338684115321}, {"aid": 840402, "name": "The Velvet Underground", "genre": "Pop/Rock", "mi": 27.47927529087272}].reverse()
+
+byGenre = {
+  "Classical":      "rgb(155,77,17)",
+	"Pop/Rock":       "rgb(204,23,138)",
+	"Reggae":         "rgb(20,131,63)",
+	"New Age":        "rgb(44,95,152)",
+	"Blues":          "rgb(16,34,83)",
+	"Children's":     "rgb(220,212,31)",
+	"Comedy/Spoken":  "rgb(217,63,54)",
+	"R&B;":           "rgb(91,57,130)",
+	"Electronic":     "rgb(36,93,241)",
+	"Folk":           "rgb(132,117,95)",
+	"Vocal":          "rgb(72,45,50)",
+	"Unknown":        "rgb(182,161,152)",
+	"Country":        "rgb(206,174,132)",
+	"Easy Listening": "rgb(111,207,196)",
+	"Religious":      "rgb(242,180,69)",
+	"Avant-Garde":    "rgb(130,46,116)",
+	"Stage & Screen": "rgb(115,80,66)",
+	"Latin":          "rgb(145,2,2)",
+	"Jazz":           "rgb(144,41,65)",
+	"International":  "rgb(95,184,212)"
+};
+
+option = {
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: data.map(d => d.name)
+    },
+    series: [
+        {
+            name: '',
+            type: 'bar',
+            data: data.map(d => {
+                return {
+                    value: parseFloat(d.mi.toFixed(2)),
+                    itemStyle: {
+                        color: byGenre[d.genre]
+                    }
+                }
+            }),
+            label: {
+                show: true,
+                position: 'right'
+            }
+        }
+    ]
+};

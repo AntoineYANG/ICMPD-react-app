@@ -108,5 +108,16 @@ if __name__ == "__main__":
       f.write(",".join([str(e) for e in item]) + "," + str(label) + "\n")
       # csv_writer.writerow(item)
     # json.dump(data, f)
+    
+  dd = []
+
+  with open("./storage/dets.txt", mode='r', encoding='utf-8') as f:
+    dets = f.read().split("\n")
+    for line, g in zip(dets[:-1], genres[:-1]):
+      d = [float(e) for e in line.split(",")]
+      dd.append([d[0], d[1], g])
+    
+  with open("./storage/dets.json", mode='w', encoding='utf-8') as f:
+    json.dump(dd, f)
 
   pass
