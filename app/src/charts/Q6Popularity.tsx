@@ -9,13 +9,10 @@ import React, { useState } from "react";
 import Colors from "../constance/colors";
 import poprock from "../constance/poprock";
 import poprockArtists from "../constance/poprockArtists";
+import changeAll from "../constance/changeAll";
 
 
 const popularity: {year: number; value: number;}[] = [
-  {"year": 1921, "value": 0},
-	{"year": 1922, "value": 0},
-	{"year": 1923, "value": 0},
-	{"year": 1924, "value": 0},
 	{"year": 1925, "value": 0.058823529411764705},
 	{"year": 1926, "value": 0.0},
 	{"year": 1927, "value": 0.0},
@@ -114,10 +111,11 @@ const popularity: {year: number; value: number;}[] = [
   {"year": 2020, "value": 0.4774215358337484}
 ];
 
-const WIDTH   = 1400;
+const WIDTH   = 1300;
 const HEIGHT  = 800;
 const FONTSIZE  = 13;
-const LEFTSPAN  = 70;
+const LEFTSPAN  = 200;
+const RIGHTSPAN = 40;
 const TOPSPAN   = 30;
 const H         = [100, 260, 346];
 const PADDING   = 17;
@@ -125,7 +123,7 @@ const PADDING   = 17;
 let sumPerYear: number[] = [];
 let riverPerYear: {[aid: number]: [number, number];}[] = [];
 let countPerYear: number[] = [];
-for (let y = 1921; y <= 2020; y++) {
+for (let y = 1925; y <= 2020; y++) {
   sumPerYear.push(0);
   riverPerYear.push({});
 }
@@ -138,14 +136,14 @@ const mr = (val: number) => Math.pow(val, 1);
 
 artists.forEach(d => {
   d.data.forEach(e => {
-    sumPerYear[e[0] - 1921] += mr(e[1]);
+    sumPerYear[e[0] - 1925] += mr(e[1]);
   });
 });
 const max = Math.max(...sumPerYear);
 const proj = (val: number) => val / max;
-for (let y = 1921; y <= 2020; y++) {
+for (let y = 1925; y <= 2020; y++) {
   // countPerYear.push(0);
-  countPerYear.push((1 - proj(sumPerYear[y - 1921])) / 2);
+  countPerYear.push((1 - proj(sumPerYear[y - 1925])) / 2);
 }
 
 artists.forEach(d => {
@@ -155,7 +153,7 @@ artists.forEach(d => {
     dict[e[0]] = mr(e[1]);
   });
   const start = Math.max(
-    1921,
+    1925,
     data[0][0] - 1
   );
   const end = Math.min(
@@ -163,7 +161,7 @@ artists.forEach(d => {
     data[data.length - 1][0] + 1
   );
   for (let j = start; j <= end; j++) {
-    const year = j - 1921;
+    const year = j - 1925;
     const h = proj(dict[j] ?? 0);
     if (h >= proj(sumPerYear[year]) * 0.05) {
       isArtistActive[d.aid] = true;
@@ -179,10 +177,10 @@ const Q6Popularity: React.FC = () => {
     label: Object.entries(labelPath).map(_ => true)
   });
 
-  const fx = (year: number) => LEFTSPAN + (year - 1921) / 100 * (WIDTH - LEFTSPAN * 2);
-  const fy1 = (val: number) => TOPSPAN + (1 - val) * H[0];
-  const fy2 = (val: number) => TOPSPAN + H[0] + PADDING + (1 - val) * H[1];
-  const fy3 = (val: number) => TOPSPAN + H[0] + H[1] + PADDING * 2 + (
+  const fx = (year: number) => LEFTSPAN + (year - 1925) / 100 * WIDTH;
+  const fy1 = (val: number) => val === -1 ? NaN : TOPSPAN + (1 - val) * H[0];
+  const fy2 = (val: number) => val === -1 ? NaN : TOPSPAN + H[0] + PADDING + (1 - val) * H[1];
+  const fy3 = (val: number) => val === -1 ? NaN : TOPSPAN + H[0] + H[1] + PADDING * 2 + (
     0.5 + (
       val >= 0.5 ? Math.sqrt((val - 0.5) * 2) : -Math.sqrt((0.5 - val) * 2)
     ) / 2
@@ -191,12 +189,12 @@ const Q6Popularity: React.FC = () => {
   const pathPopu = popularity.map((d, i) => {
     return `${i?"L":"M"}${fx(d.year)},${fy1(d.value)}`;
   }).join(" ");
-  const fillPopu = `M${fx(1921)},${fy1(0)} ` + popularity.map(d => {
+  const fillPopu = `M${fx(1925)},${fy1(0)} ` + popularity.map(d => {
     return `L${fx(d.year)},${fy1(d.value)+1}`;
   }).join(" ") + ` V${fy1(0)} Z`;
 
   return (
-    <svg width={ WIDTH } height={ HEIGHT }
+    <svg width={ WIDTH + LEFTSPAN + RIGHTSPAN } height={ HEIGHT }
       style={{
         background: "white",
         border:     "1px solid",
@@ -235,13 +233,13 @@ const Q6Popularity: React.FC = () => {
         {/* genre popularity */}
         <g key="genre-popularity" >
           <line key="top"
-            x1={ fx(1921) } x2={ fx(2020.5) }
+            x1={ fx(1925) } x2={ fx(2020.5) }
             y1={ fy1(0) } y2={ fy1(0) }
             style={{
               stroke: "#000"
             }} />
           <line key="bottom"
-            x1={ fx(1921) } x2={ fx(2020.5) }
+            x1={ fx(1925) } x2={ fx(2020.5) }
             y1={ fy1(1) } y2={ fy1(1) }
             style={{
               stroke: "#000"
@@ -278,43 +276,43 @@ const Q6Popularity: React.FC = () => {
         {/* style change */}
         <g key="style-change" >
           <line key="top"
-            x1={ fx(1921) } x2={ fx(2020.5) }
+            x1={ fx(1925) } x2={ fx(2020.5) }
             y1={ fy2(0) } y2={ fy2(0) }
             style={{
               stroke: "#000"
             }} />
           <line key="bottom"
-            x1={ fx(1921) } x2={ fx(2020.5) }
+            x1={ fx(1925) } x2={ fx(2020.5) }
             y1={ fy2(1) } y2={ fy2(1) }
             style={{
               stroke: "#000"
             }} />
           {
-            poprock.map((d, i) => {
+            changeAll.map((d, i) => {
+            // poprock.map((d, i) => {
               const min = Math.min(...d.data.map(p => p[1]));
               const max = Math.max(...d.data.map(p => p[1]));
               const style = labelPath(i);
+              const path = d.data.filter(p => p[0] >= 1925).map((p, j) => {
+                return `${j?"L":"M"}${fx(p[0])},${fy2((p[1]-min)/(max-min))}`
+              }).join(" ");
 
               return (
                 <path key={ d.label }
-                  d={
-                    d.data.map((p, j) => {
-                      return `${j?"L":"M"}${fx(p[0])},${fy2((p[1]-min)/(max-min))}`
-                    }).join(" ")
-                  }
+                  d={ path }
                   strokeDasharray={ style.dash }
                   style={{
                     fill: "none",
                     stroke: style.color,
                     strokeWidth:  style.w * 1.5,
-                    opacity: state.label[i] ? 1 : 0.2,
+                    opacity: state.label[i] ? 1 : 0.0,
                     transition: "opacity 0.3s"
                   }} />
               );
             })
           }
           <rect key="label"
-            x={ fx(1921) + 6 } y={ fy2(0.97) }
+            x={ 26 } y={ fy2(0.97) }
             width="160" height={ fy2(0.07) - fy2(0.97) }
             rx="8" ry="8"
             style={{
@@ -329,7 +327,7 @@ const Q6Popularity: React.FC = () => {
               return (
                 <g key={ "label-" + d.label } >
                   <text
-                    x={ fx(1921) + 122 } y={ y }
+                    x={ 142 } y={ y }
                     textAnchor="end"
                     dy="0.3em"
                     style={{
@@ -340,7 +338,7 @@ const Q6Popularity: React.FC = () => {
                       { d.label }
                   </text>
                   <path
-                    d={ `M${fx(1921)+130},${y} h24` }
+                    d={ `M${150},${y} h24` }
                     strokeDasharray={ style.dash }
                     style={{
                       fill: "none",
@@ -348,7 +346,7 @@ const Q6Popularity: React.FC = () => {
                       strokeWidth:  style.w * 1.5
                     }} />
                   <rect
-                    x={ fx(1921) + 16 } y={ y - 10 }
+                    x={ 36 } y={ y - 10 }
                     width="140" height={ fy2(0.93) - fy2(1) }
                     style={{
                       fill: "#fff",
@@ -387,13 +385,13 @@ const Q6Popularity: React.FC = () => {
         {/* artists activity */}
         <g key="artists-activity" >
           <line key="top"
-            x1={ fx(1921) } x2={ fx(2020.5) }
+            x1={ fx(1925) } x2={ fx(2020.5) }
             y1={ fy3(0) } y2={ fy3(0) }
             style={{
               stroke: "#000"
             }} />
           <line key="bottom"
-            x1={ fx(1921) } x2={ fx(2020.5) }
+            x1={ fx(1925) } x2={ fx(2020.5) }
             y1={ fy3(1) } y2={ fy3(1) }
             style={{
               stroke: "#000"
@@ -401,7 +399,7 @@ const Q6Popularity: React.FC = () => {
           {
             artists.map((d, i) => {
               const start = Math.max(
-                1921,
+                1925,
                 Math.min(...d.data.map(e => e[0])) - 1
               );
               const end = Math.min(
@@ -412,8 +410,8 @@ const Q6Popularity: React.FC = () => {
               for (let j = start; j <= end; j++) {
                 data.push([
                   j,
-                  riverPerYear[j - 1921][d.aid][0],
-                  riverPerYear[j - 1921][d.aid][1]
+                  riverPerYear[j - 1925][d.aid][0],
+                  riverPerYear[j - 1925][d.aid][1]
                 ]);
               }
               const path = data.map((e, j) => {
@@ -453,14 +451,14 @@ const Q6Popularity: React.FC = () => {
             })
           }
           <rect key="background"
-            x={ fx(1921) + 80 } y={ fy3(0.2) }
+            x={ fx(1925) + 80 } y={ fy3(0.2) }
             width="110" height="28"
             style={{
               fill: "white",
               stroke: "#999"
             }} />
           <text key="focus" id="focusAid"
-            x={ fx(1921) + 135 } y={ fy3(0.2) + 14 }
+            x={ fx(1925) + 135 } y={ fy3(0.2) + 14 }
             dy="0.33em" textAnchor="middle"
              >
               hover to see
