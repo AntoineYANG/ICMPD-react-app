@@ -1,0 +1,367 @@
+[{
+  "year": 0,
+  "data": [{
+    "name": "Fleetwood Mac",
+    "sigma": 1.623544692993164
+  }, {
+    "name": "AC/DC",
+    "sigma": 2.3458496779203415
+  }, {
+    "name": "Soundgarden",
+    "sigma": 14.746976216634115
+  }, {
+    "name": "Judas Priest",
+    "sigma": 15.757121833887966
+  }, {
+    "name": "Santana",
+    "sigma": 18.90717887878418
+  }, {
+    "name": "Phil Collins",
+    "sigma": 20.422458065407618
+  }, {
+    "name": "Queensr\u00c3\u00bfche",
+    "sigma": 21.048639425864586
+  }, {
+    "name": "Alice in Chains",
+    "sigma": 21.342190994935876
+  }, {
+    "name": "Jimmy Buffett",
+    "sigma": 21.400681257247925
+  }, {
+    "name": "Elton John",
+    "sigma": 28.513086706399918
+  }, {
+    "name": "Pink Floyd",
+    "sigma": 30.210824966430664
+  }]
+}, {
+  "year": 1,
+  "data": [{
+    "name": "R.E.M.",
+    "sigma": 3.022574996948242
+  }, {
+    "name": "Metallica",
+    "sigma": 5.587806060910225
+  }, {
+    "name": "Nirvana",
+    "sigma": 7.075928424699948
+  }, {
+    "name": "Green Day",
+    "sigma": 7.400862493013081
+  }, {
+    "name": "Soundgarden",
+    "sigma": 9.033940553665161
+  }, {
+    "name": "Smashing Pumpkins",
+    "sigma": 10.951772949912332
+  }, {
+    "name": "Sublime",
+    "sigma": 12.41665551662445
+  }, {
+    "name": "Red Hot Chili Peppers",
+    "sigma": 13.130315443447659
+  }, {
+    "name": "Guns N' Roses",
+    "sigma": 13.48947224020958
+  }, {
+    "name": "U2",
+    "sigma": 15.021294680833815
+  }, {
+    "name": "Pearl Jam",
+    "sigma": 17.13173580444173
+  }]
+}, {
+  "year": 2,
+  "data": [{
+    "name": "Sublime",
+    "sigma": 0.7142418135296216
+  }, {
+    "name": "The Offspring",
+    "sigma": 2.370103359222412
+  }, {
+    "name": "Eric Clapton",
+    "sigma": 2.8589966463977876
+  }, {
+    "name": "AC/DC",
+    "sigma": 3.8179059293535023
+  }, {
+    "name": "Rage Against the Machine",
+    "sigma": 3.890988629204886
+  }, {
+    "name": "Green Day",
+    "sigma": 4.807270113627116
+  }, {
+    "name": "Alice in Chains",
+    "sigma": 5.331853495703803
+  }, {
+    "name": "Red Hot Chili Peppers",
+    "sigma": 6.619396924972534
+  }, {
+    "name": "Nirvana",
+    "sigma": 9.989908814430237
+  }, {
+    "name": "R.E.M.",
+    "sigma": 16.814221991433037
+  }, {
+    "name": "Jimmy Buffett",
+    "sigma": 24.357261951764425
+  }, {
+    "name": "Elton John",
+    "sigma": 39.73417282104492
+  }, {
+    "name": "Pearl Jam",
+    "sigma": 42.46908760070801
+  }]
+}, {
+  "year": 3,
+  "data": [{
+    "name": "Phil Collins",
+    "sigma": 3.025630672772725
+  }, {
+    "name": "Nirvana",
+    "sigma": 3.2963443602003704
+  }, {
+    "name": "Pearl Jam",
+    "sigma": 7.108653934562907
+  }, {
+    "name": "Guns N' Roses",
+    "sigma": 8.452943869999476
+  }, {
+    "name": "Metallica",
+    "sigma": 20.54379532337189
+  }, {
+    "name": "Smashing Pumpkins",
+    "sigma": 20.63535825898871
+  }, {
+    "name": "U2",
+    "sigma": 21.411969423294067
+  }]
+}, {
+  "year": 4,
+  "data": [{
+    "name": "Smashing Pumpkins",
+    "sigma": 0.9561376571655273
+  }, {
+    "name": "Alice in Chains",
+    "sigma": 2.9903795378548756
+  }, {
+    "name": "Soundgarden",
+    "sigma": 3.6113294533320834
+  }, {
+    "name": "The Offspring",
+    "sigma": 3.7119044264157615
+  }, {
+    "name": "R.E.M.",
+    "sigma": 5.157322247823079
+  }, {
+    "name": "Green Day",
+    "sigma": 5.268495798110962
+  }, {
+    "name": "Nirvana",
+    "sigma": 5.935720545904977
+  }, {
+    "name": "Rage Against the Machine",
+    "sigma": 9.885971069335938
+  }, {
+    "name": "Pearl Jam",
+    "sigma": 9.99566056082646
+  }, {
+    "name": "Pink Floyd",
+    "sigma": 11.156936125321822
+  }, {
+    "name": "Jimi Hendrix",
+    "sigma": 11.201513290405273
+  }, {
+    "name": "Sublime",
+    "sigma": 14.13056194782257
+  }, {
+    "name": "Jimmy Buffett",
+    "sigma": 29.5645268758138
+  }, {
+    "name": "Eric Clapton",
+    "sigma": 46.27157974243164
+  }, {
+    "name": "Elton John",
+    "sigma": 50.51778984069824
+  }]
+}, {
+  "year": 5,
+  "data": [{
+    "name": "Jimmy Buffett",
+    "sigma": 2.1507568359375
+  }, {
+    "name": "Pink Floyd",
+    "sigma": 2.3216280341148376
+  }, {
+    "name": "Alice in Chains",
+    "sigma": 3.20651313662529
+  }, {
+    "name": "Green Day",
+    "sigma": 6.774044479642596
+  }, {
+    "name": "Pearl Jam",
+    "sigma": 7.292696952819824
+  }, {
+    "name": "Smashing Pumpkins",
+    "sigma": 8.650399748768125
+  }, {
+    "name": "AC/DC",
+    "sigma": 10.86673641204834
+  }, {
+    "name": "blink-182",
+    "sigma": 12.164008727440468
+  }, {
+    "name": "Red Hot Chili Peppers",
+    "sigma": 14.752246720450264
+  }, {
+    "name": "Elton John",
+    "sigma": 19.257222175598145
+  }, {
+    "name": "Fleetwood Mac",
+    "sigma": 30.025508880615234
+  }, {
+    "name": "Alanis Morissette",
+    "sigma": 30.496776800889236
+  }]
+}, {
+  "year": 6,
+  "data": [{
+    "name": "Rage Against the Machine",
+    "sigma": 0.507277402010831
+  }, {
+    "name": "Pearl Jam",
+    "sigma": 2.874790918827057
+  }, {
+    "name": "Sublime",
+    "sigma": 3.0536863623663435
+  }, {
+    "name": "Metallica",
+    "sigma": 3.2386862465313504
+  }, {
+    "name": "Alice in Chains",
+    "sigma": 8.154242809002216
+  }, {
+    "name": "R.E.M.",
+    "sigma": 10.939378420511881
+  }, {
+    "name": "Jimmy Buffett",
+    "sigma": 18.199939966201782
+  }, {
+    "name": "Soundgarden",
+    "sigma": 20.507341066996258
+  }, {
+    "name": "Phil Collins",
+    "sigma": 27.345019340515137
+  }]
+}, {
+  "year": 7,
+  "data": [{
+    "name": "Sublime",
+    "sigma": 2.8759155869483948
+  }, {
+    "name": "The Offspring",
+    "sigma": 4.298370348082648
+  }, {
+    "name": "Fleetwood Mac",
+    "sigma": 8.28815758228302
+  }, {
+    "name": "blink-182",
+    "sigma": 8.968501916243916
+  }, {
+    "name": "Green Day",
+    "sigma": 14.527209531929758
+  }, {
+    "name": "Metallica",
+    "sigma": 16.020418057074913
+  }, {
+    "name": "Jimi Hendrix",
+    "sigma": 18.974205827713014
+  }, {
+    "name": "U2",
+    "sigma": 31.21199607849121
+  }, {
+    "name": "Elton John",
+    "sigma": 41.54731241861979
+  }]
+}, {
+  "year": 8,
+  "data": [{
+    "name": "Alanis Morissette",
+    "sigma": 2.896449327468872
+  }, {
+    "name": "Sublime",
+    "sigma": 2.9734431743621825
+  }, {
+    "name": "System of a Down",
+    "sigma": 3.159715442096486
+  }, {
+    "name": "blink-182",
+    "sigma": 5.980185190836589
+  }, {
+    "name": "Metallica",
+    "sigma": 7.517199714978537
+  }, {
+    "name": "The Offspring",
+    "sigma": 8.826615969340008
+  }, {
+    "name": "Eric Clapton",
+    "sigma": 10.602678775787354
+  }, {
+    "name": "Smashing Pumpkins",
+    "sigma": 10.748818576335907
+  }, {
+    "name": "R.E.M.",
+    "sigma": 10.994902610778809
+  }, {
+    "name": "Pearl Jam",
+    "sigma": 16.292511135339737
+  }, {
+    "name": "U2",
+    "sigma": 21.928425550460815
+  }, {
+    "name": "Rage Against the Machine",
+    "sigma": 25.18332862854004
+  }]
+}, {
+  "year": 9,
+  "data": [{
+    "name": "Santana",
+    "sigma": 4.300599444996227
+  }, {
+    "name": "Rage Against the Machine",
+    "sigma": 6.099837144215901
+  }, {
+    "name": "Slipknot",
+    "sigma": 7.727222351233165
+  }, {
+    "name": "blink-182",
+    "sigma": 8.271218831722553
+  }, {
+    "name": "Phil Collins",
+    "sigma": 8.666086673736572
+  }, {
+    "name": "Red Hot Chili Peppers",
+    "sigma": 10.027965234987663
+  }, {
+    "name": "Metallica",
+    "sigma": 11.080053692772275
+  }, {
+    "name": "Alanis Morissette",
+    "sigma": 11.348784255981446
+  }, {
+    "name": "Pearl Jam",
+    "sigma": 11.349801540374756
+  }, {
+    "name": "Eric Clapton",
+    "sigma": 12.793403244018554
+  }, {
+    "name": "Jimmy Buffett",
+    "sigma": 37.28655242919922
+  }, {
+    "name": "Jimi Hendrix",
+    "sigma": 43.95890808105469
+  }, {
+    "name": "Sublime",
+    "sigma": 48.48614501953125
+  }]
+}]
